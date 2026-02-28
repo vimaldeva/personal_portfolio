@@ -5,3 +5,5 @@ python3 -m venv venv
 
 venv\Scripts\activate
 
+# Upgrade pip
+python -m pip install --upgrade pip
