@@ -1,0 +1,6 @@
+Deployment Ideas :
+
+-> Deploying code to lambda function
+-> Deploying Data File to S3 bucket
+-> Deploying an application in EC2 instanct
+-> Deploying an application in Docker ECR
