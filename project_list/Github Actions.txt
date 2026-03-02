@@ -4,3 +4,14 @@ Deployment Ideas :
 -> Deploying Data File to S3 bucket
 -> Deploying an application in EC2 instanct
 -> Deploying an application in Docker ECR
+
+------------------------------------------------------------------------------------------------
+Testcase Ideas :
+
+-> Execute test case for given script
+-> Execute test cases for given Docker application
+
+------------------------------------------------------------------------------------------------
+Data Engineering :
+
+-> Write unit test cases for Data Enginnering script
