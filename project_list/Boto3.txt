@@ -1,0 +1,9 @@
+
+-> boto3 for S3
+-> botot3 for Lambda
+-> boto3 for Glue
+-> botto3 for DynamoDB
+-> boto3 for Bedrock
+-> boto3 for Athena
+-> boto3 for AWS secrets
+-> boto3 for API gateway
