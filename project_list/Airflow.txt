@@ -1,0 +1,10 @@
+
+-> Create a DAG with simple Python Operator
+-> Create DAG with simple UNIX operator
+-> Create a DAG with Email Sender Operator
+-> Create a DAG with S3 File sensor Operator
+-> Create a DAG with different branching strategies
+-> Create a DAG with different task condition
+-> Create a DAG with DAG dependency
+-> Implement xcom push and pull in DAG
+-> Create a Databricks Pipeline 
