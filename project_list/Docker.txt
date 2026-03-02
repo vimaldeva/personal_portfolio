@@ -1,0 +1,15 @@
+Basic Docker 
+
+-> Create a docker container for a MySQL database which creates table and scripts once created
+-> Create a Docker container for a Python AI application 
+
+------------------------------------------------------------------------------------------------
+AWS Docker
+
+-> Deploy the container in AWS in ECR
+-> Run the container in AWS and test it
+
+------------------------------------------------------------------------------------------------
+Docker CI/CD
+
+-> Try deploying the Docker container into AWS using Github Actions
