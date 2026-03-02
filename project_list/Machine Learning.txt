@@ -1,0 +1,7 @@
+
+-> House price prediction
+-> Churn prediction
+-> Multi class classification
+-> Spam detection
+-> Fraud detection
+-> Medical disease diagnosis
