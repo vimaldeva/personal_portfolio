@@ -1,0 +1,4 @@
+
+-> Create a lambda function and Deploy
+-> Creata a Lambda function , S3 bucket along with necessary IAM roles
+-> Create an EC2 instance inside an existing default VPC and install an mlflow server inside it 
