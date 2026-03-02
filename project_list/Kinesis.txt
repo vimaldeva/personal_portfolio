@@ -1,0 +1,7 @@
+
+-> Ingest Data into a Kinesis Stream
+-> Consume Data from Kinesis stream - using Lambda
+
+-> Create Kinesis Data Firehose and store data into S3
+-> Create Kinesis Data analytics and perform some analysis
+-> Ingest data into Kinesis Data streams and consume it using Spark streaming in Databricks
