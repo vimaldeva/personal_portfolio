@@ -1,0 +1,8 @@
+
+-> Image classification / Tuberclosis detection
+-> Object Detection
+-> Image description
+-> Speech to text 
+-> Text to speech
+-> Reinforcement Learning
+-> Time series forecasting
