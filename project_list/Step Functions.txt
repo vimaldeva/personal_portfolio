@@ -1,0 +1,4 @@
+
+-> Create a state to organise labda functions
+-> Pass the output value of each step in Step function
+-> Implement parallel and conditional execution in Step Functions
