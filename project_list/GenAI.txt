@@ -1,0 +1,10 @@
+
+-> Multi Agent system
+-> Simple LLm call using Boto3
+-> MLflow tracking - data retrieval - evaluation - metrics observation
+-> Ragas evaluation metrics
+-> RAG implementation
+-> Agentic RAG implementation
+-> RAG pipeline
+-> AI cost and performance optimization
+-> AI Application deployment
