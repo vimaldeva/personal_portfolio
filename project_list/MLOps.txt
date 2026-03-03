@@ -1,0 +1,20 @@
+
+-> Store features into Sagemaker fature store
+-> Access data from Sagemaker Feature store
+-> Store Data into Databricks feature store
+-> Access data from Databricks Feature store
+
+-> Track different versions of model in MLFlow
+
+-> Deploy a ML model as a docker container
+-> Deploy a model into Sagemaker
+-> Deploy a model into Databricks
+
+-> Model monitoring in Sagemaker
+-> Model monitoring in Databricks
+
+-> Model training and retraining pipeline in Sagemaker
+-> Model training and retraining pipeline in Databricks
+
+-> Data drift, Model drift, concept drift in Sagemaker
+-> Data drift, Model drift, concept drift in Databricks
