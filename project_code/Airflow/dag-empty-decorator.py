@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 @dag(start_date= datetime(2026,1,1),
-     schedule_interval= "@daily",
+     schedule = "@daily",
      catchup= False)
 def dag_empty_decorator():
     pass
