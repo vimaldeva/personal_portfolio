@@ -3,4 +3,4 @@
 docker ps
 
 # To go inside the terminal of running docker container
-docker exec -it 123ibd  (container_id)
+docker exec -it 123ibd bash      ## (container_id)
