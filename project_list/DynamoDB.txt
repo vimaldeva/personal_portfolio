@@ -1,2 +1,21 @@
 
--> Hands on for Dynamo DB
+Hands on for Dynamo DB using Boto3 : 
+
+-> create_table
+-> describe_table
+-> list_tables
+-> crate_table  -> with additional configurations
+-> delete_table
+-> put_item
+-> delete_item
+-> batch_write_item -> insert and delete
+-> update_item
+-> transact_write_items
+-> batch_get_items
+-> get items -> get_item
+-> get items -> query
+-> get items -> scan
+-> execute_statement  -> Parti SQL
+
+
+
