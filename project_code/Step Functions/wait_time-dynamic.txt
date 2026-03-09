@@ -1,0 +1,34 @@
+{
+  "Comment": "A description of my state machine",
+  "StartAt": "user pass",
+  "States": {
+    "user pass": {
+      "Type": "Pass",
+      "Next": "Company Choice"
+    },
+    "Company Choice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Next": "Condition success",
+          "Condition": "{% $states.input.company = 'EPAM' %}"
+        }
+      ],
+      "Default": "Condition failed"
+    },
+    "Condition success": {
+      "Type": "Pass",
+      "Next": "Wait"
+    },
+    "Wait": {
+      "Type": "Wait",
+      "End": true,
+      "Seconds": "{% $states.input.waittime%}"
+    },
+    "Condition failed": {
+      "Type": "Pass",
+      "End": true
+    }
+  },
+  "QueryLanguage": "JSONata"
+}
