@@ -1,0 +1,43 @@
+{
+  "Comment": "A description of my state machine",
+  "StartAt": "user pass",
+  "States": {
+    "user pass": {
+      "Type": "Pass",
+      "Next": "Company Choice"
+    },
+    "Company Choice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Next": "City Choice",
+          "Condition": "{% $states.input.company = 'EPAM' %}"
+        }
+      ],
+      "Default": "Condition failed"
+    },
+    "City Choice": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Next": "Pass",
+          "Condition": "{% ($states.input.city) = (\"HYDERABAD\") %}"
+        }
+      ],
+      "Default": "Condition success"
+    },
+    "Pass": {
+      "Type": "Pass",
+      "End": true
+    },
+    "Condition success": {
+      "Type": "Pass",
+      "End": true
+    },
+    "Condition failed": {
+      "Type": "Pass",
+      "End": true
+    }
+  },
+  "QueryLanguage": "JSONata"
+}
