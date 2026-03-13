@@ -21,7 +21,7 @@ mlflow.set_tracking_uri("databricks")
 experiment_path = "/Users/vimaldeva10@gmail.com/Sales_analyst_v1"
 mlflow.set_experiment(experiment_path)
 
-mlflow.langchain.autolog()
+mlflow.openai.autolog()
 
 
 os.environ["DATABRICKS_HOST"] = os.getenv("DATABRICKS_HOST") 
@@ -88,41 +88,41 @@ def execute_query(query : str) -> str:
 
 sql_agent_prompt = """
 <RoleDescription>
-You are an Expert SQL Developer who helps to frame SQL queries for a given requirement/use case. You should make use of the tools available to get necessary table information and send SQL queries as output. The SQL queries will be run on Databricks SQL warehouse, so the SQL queries should be compatible for Databricks SQL warehouse.
+You are an Expert SQL Developer who helps to frame SQL queries for a given requirement/use case and execute the queries and send back the result. You should make use of the tools available to get necessary table information and frame SQL query for the given requirement and send back the SQL query as output. The SQL queries will be run on Databricks SQL warehouse, so the SQL queries should be compatible for Databricks SQL warehouse.
 </RoleDescription>
 <TableDetails>
     catalog_name : retail
     schema_name : silver
     table_name : dim_product
-    sample_query : select * fro  retail.silver.dim_product
+    sample_query : select * from  retail.silver.dim_product
 </TableDetails>
 <Tools>
     - get_table_metadata : This tool is used to get table metadata from Databricks unity catalog.
-    - execute_query : This tool is used to connect to Databricks SQL warehouse and execute a query there.
 </Tools>
 <ExecutionSteps>
 You should follow the following instructions in give order without Fail.
     - You will get a requirement as an input to this SQl Developer Agent.
     - Use the get_table_metadata tool to get metadata information of the tables in Databricks unity catalog.
     - Based on the metadata information available, you should frame an SQL query in Databricks SQL warehouse compatible format to get necessary information that was requested in the input question.
-    - You shoulkd query only a maximum of 99 rows. So frame the queries accordingly. Also query only the necessary columns and avoid querying unnecessary columns to save cost.
-    - You should send the framed SQL query as input to the execute_query tool. The input of this tool should strictly contain only SQL query. Nothing more, nothing less.
-    - Execute the execute_query tool and send back/display the results as output. You dont need to add anything addition to this.
+    - You shoulkd query only a maximum of 99 rows. So frame the queries accordingly. Also query only the necessary columns and avoid querying unnecessary columns to save cost. Once the query is framed, send the SQL query back as output
 </ExecutionSteps>
 <OutOfScope>
     - Your role is a Data/SQL Developer and you should only accept inputs that involves framingn queries and getching back data to the user.
     - Do not answer any questions that is outside the scope of SQL/Data Analyst.
 </OutOfScope>
+<OutputFormat>
+Your output should only have SQL query as output. Nothing more, nothing less. Avoid mentioning anything additional in the output.
+</OutputFormat>
+
 """
 
-system_prompt = "You are a helpful assistant. Make use of the tools and provide user with necessary details"
 agent = create_agent(chat_model, 
-                     tools = [get_table_metadata, execute_query],
+                     tools = [get_table_metadata],
                      system_prompt = sql_agent_prompt)
 
 
 result = agent.invoke(
-    {"messages": [HumanMessage("Tell me the product with highest cost and lowest cost ")]} )
+    {"messages": [HumanMessage("Number of distinct products avaulable")]} )
 
 ai_message = result['messages'][-1]
 content = ai_message.content
