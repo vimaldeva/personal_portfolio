@@ -1,0 +1,147 @@
+import os
+import mlflow
+import boto3
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from mangum import Mangum
+from langchain_databricks import ChatDatabricks
+from langchain_core.tools import tool
+from langchain_core.messages import HumanMessage
+# from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
+from databricks import sql
+import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# --- NEW IMPORTS FOR MEMORY ---
+from langchain_community.chat_message_histories import DynamoDBChatMessageHistory
+from langchain_core.runnables.history import RunnableWithMessageHistory
+
+app = FastAPI()
+
+# Request model includes session_id to track who is talking
+class QueryRequest(BaseModel):
+    question: str
+    session_id: str 
+
+# ... (Keep your MLflow setup and Tool definitions here) ...
+load_dotenv()
+
+# 1. Setup MLflow
+mlflow.set_tracking_uri("databricks")
+mlflow.set_experiment("/Users/vimaldeva10@gmail.com/Sales_analyst_v1")
+mlflow.langchain.autolog()
+
+@tool
+def get_table_metadata(table_name: str) -> str:
+    """
+    Fetches column names and types for a specific table in the retail.silver schema.
+    Input should be the table name (e.g., 'dim_product').
+    """
+    # Note: In production, consider passing a global connection or connection pool
+    try:
+        connection = sql.connect(
+            server_hostname=os.getenv('DATABRICKS_HOST'),
+            http_path=os.getenv("DATABRICKS_HTTP_PATH"),
+            access_token=os.getenv("DATABRICKS_TOKEN")
+        )
+        
+        # Sanitize input to prevent injection (basic example)
+        clean_table = table_name.replace(";", "").strip()
+        query = f"DESCRIBE retail.silver.{clean_table}"
+
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            # Get column name and data type
+            df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
+            # Keep only relevant columns to save context window
+            df = df[['col_name', 'data_type']]
+
+        connection.close()
+        return df.to_string(index=False)
+    except Exception as e:
+        return f"Error fetching metadata: {str(e)}"
+
+@tool
+def execute_sql_query(query: str) -> str:
+    """
+    Executes a SELECT SQL query on Databricks and returns the result.
+    Input must be a valid Databricks SQL query string.
+    """
+    try:
+        connection = sql.connect(
+            server_hostname=os.getenv('DATABRICKS_HOST'),
+            http_path=os.getenv("DATABRICKS_HTTP_PATH"),
+            access_token=os.getenv("DATABRICKS_TOKEN")
+        )
+        
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            results = cursor.fetchall()
+            if not results:
+                return "Query executed successfully but returned no rows."
+            df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
+            
+        connection.close()
+        return df.to_string(index=False)
+    except Exception as e:
+        return f"Error executing query: {str(e)}"
+
+
+
+# Define the Agent
+def get_agent():
+    chat_model = ChatDatabricks(
+        endpoint="databricks-meta-llama-3-3-70b-instruct",
+        temperature=0.1,
+        max_tokens=500,
+    )
+    tools = [get_table_metadata, execute_sql_query]
+    return create_agent(chat_model, tools)
+
+# --- MEMORY CONFIGURATION ---
+def get_session_history(session_id: str):
+    """
+    Connects to AWS DynamoDB to retrieve chat history for a specific session_id.
+    """
+    return DynamoDBChatMessageHistory(
+        table_name="SalesAgentSessionTable",
+        session_id=session_id,
+        primary_key_name="session_id"
+    )
+
+# Initialize the base agent
+base_agent = get_agent()
+
+# Wrap the agent with Message History
+agent_with_memory = RunnableWithMessageHistory(
+    base_agent,
+    get_session_history,
+    input_messages_key="messages", # LangGraph expects input in 'messages'
+    output_messages_key="messages", # LangGraph outputs 'messages'
+)
+
+@app.post("/chat")
+def chat_endpoint(request: QueryRequest):
+    try:
+        # We pass the session_id in the config
+        # The wrapper handles loading from and saving to DynamoDB automatically
+        response = agent_with_memory.invoke(
+            {"messages": [HumanMessage(content=request.question)]},
+            config={"configurable": {"session_id": request.session_id}}
+        )
+        
+        # LangGraph returns a list of messages. The last one is the AI response.
+        final_response = response["messages"][-1].content
+        
+        return {
+            "response": final_response, 
+            "session_id": request.session_id
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+handler = Mangum(app)
