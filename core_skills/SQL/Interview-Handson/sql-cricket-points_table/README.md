@@ -9,7 +9,7 @@
 
 ## OUTPUT
 
-![oUTPUT Image](./OUTPUT.png)
+![Output Image](./output.png)
 
 ---
 
