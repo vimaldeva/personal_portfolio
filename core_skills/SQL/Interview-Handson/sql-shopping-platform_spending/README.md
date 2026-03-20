@@ -1,4 +1,4 @@
-# Find whether the second product sold by the seller (based on order-date) is their favorite product or not. If the seller has sold less than 2 products, mention as No
+# Find total amount and users fon each platform each day
 
 --- 
 ## INPUT
@@ -16,32 +16,37 @@
 ## DATA PREPARATION
 
 ```
-create table users (
-user_id         int     ,
- join_date       date    ,
- favorite_brand  varchar(50));
-
- create table orders (
- order_id       int     ,
- order_date     date    ,
- item_id        int     ,
- buyer_id       int     ,
- seller_id      int 
- );
-
- create table items
- (
- item_id        int     ,
- item_brand     varchar(50)
- );
-
-
- insert into users values (1,'2019-01-01','Lenovo'),(2,'2019-02-09','Samsung'),(3,'2019-01-19','LG'),(4,'2019-05-21','HP');
-
- insert into items values (1,'Samsung'),(2,'Lenovo'),(3,'LG'),(4,'HP');
-
- insert into orders values (1,'2019-08-01',4,1,2),(2,'2019-08-02',2,1,3),(3,'2019-08-03',3,2,3),(4,'2019-08-04',1,4,2)
- ,(5,'2019-08-04',1,3,4),(6,'2019-08-05',2,2,4);
+with
+    combined_data as (
+        select
+            spend_date,
+            platform,
+            count(*) as total_sales,
+            sum(amount) as total_amount
+        from
+            spending
+        group by
+            spend_date,
+            platform
+        order by
+            spend_date,
+            platform
+    )
+select
+    *
+from
+    combined_data
+union
+select
+    spend_date,
+    'both' as platform,
+    sum(total_sales) as total_sales,
+    sum(total_amount) as total_amount
+from
+    combined_data
+group by
+    spend_date,
+    platform
 
 ```
 
@@ -50,30 +55,55 @@ user_id         int     ,
 ## SQL SOLUTION OVERVIEW
 
 ```
-with
-    rnk_orders as (
-        select
-            *,
-            rank() over (
-                partition by
-                    seller_id
-                order by
-                    order_date asc
-            ) as rn
+WITH
+    unique_date as (
+        select distinct
+            spend_date as p_spend_date
         from
-            orders
+            spending
+    ),
+    unique_platform as (
+        select
+            * as p_platform
+        from
+            (
+                values
+                    ('desktop'),
+                    ('mobile'),
+                    ('desktop,mobile')
+            )
+    ),
+    combined_data AS (
+        SELECT
+            user_id,
+            spend_date,
+            string_agg (
+                platform,
+                ','
+                order by
+                    platform
+            ) as platform,
+            SUM(amount) AS total_amount,
+            COUNT(*) AS total_sales
+        FROM
+            spending
+        GROUP BY
+            spend_date,
+            user_id
     )
-select
-    u.user_id as seller_id,
+SELECT
+    p_spend_date as spend_date,
     case
-        when i.item_brand = u.favorite_brand then 'Yes'
-        else 'No'
-    end as item_fav_brand
-from
-    users u
-    LEFT join rnk_orders ro on ro.seller_id = u.user_id
-    and rn = 2
-    LEFT join items i on i.item_id = ro.item_id
+        when p_platform = 'desktop,mobile' then 'both'
+        else p_platform
+    end as platform,
+    coalesce(total_amount, 0) as total_amount,
+    coalesce(total_sales, 0) as total_users
+FROM
+    unique_date
+    cross join unique_platform
+    left join combined_data on spend_date = p_spend_date
+    and platform = p_platform
 
 ```
 --- 

@@ -1,24 +1,49 @@
-with
-    rnk_orders as (
-        select
-            *,
-            rank() over (
-                partition by
-                    seller_id
-                order by
-                    order_date asc
-            ) as rn
+WITH
+    unique_date as (
+        select distinct
+            spend_date as p_spend_date
         from
-            orders
+            spending
+    ),
+    unique_platform as (
+        select
+            * as p_platform
+        from
+            (
+                values
+                    ('desktop'),
+                    ('mobile'),
+                    ('desktop,mobile')
+            )
+    ),
+    combined_data AS (
+        SELECT
+            user_id,
+            spend_date,
+            string_agg (
+                platform,
+                ','
+                order by
+                    platform
+            ) as platform,
+            SUM(amount) AS total_amount,
+            COUNT(*) AS total_sales
+        FROM
+            spending
+        GROUP BY
+            spend_date,
+            user_id
     )
-select
-    u.user_id as seller_id,
+SELECT
+    p_spend_date as spend_date,
     case
-        when i.item_brand = u.favorite_brand then 'Yes'
-        else 'No'
-    end as item_fav_brand
-from
-    users u
-    LEFT join rnk_orders ro on ro.seller_id = u.user_id
-    and rn = 2
-    LEFT join items i on i.item_id = ro.item_id
+        when p_platform = 'desktop,mobile' then 'both'
+        else p_platform
+    end as platform,
+    coalesce(total_amount, 0) as total_amount,
+    coalesce(total_sales, 0) as total_users
+FROM
+    unique_date
+    cross join unique_platform
+    left join combined_data on spend_date = p_spend_date
+    and platform = p_platform
