@@ -1,28 +1,24 @@
-    WITH com_player AS (
-        SELECT first_player,  first_score
-        FROM matches
-        UNION ALL                                    
-        SELECT second_player, second_score
-        FROM matches
-    ),
-    group_points AS (
-        SELECT
-            first_player,
-            group_id,
-            SUM(first_score) AS total_score,
-            ROW_NUMBER() OVER (
-                PARTITION BY group_id
-                ORDER BY SUM(first_score) DESC,      
-                        first_player ASC
-            ) AS point_rank
-        FROM com_player c
-        INNER JOIN players p ON c.first_player = p.player_id
-        GROUP BY first_player, group_id             
+with
+    rnk_orders as (
+        select
+            *,
+            rank() over (
+                partition by
+                    seller_id
+                order by
+                    order_date asc
+            ) as rn
+        from
+            orders
     )
-    SELECT
-        group_id,
-        first_player as player_id,
-        total_score as score
-    FROM group_points
-    WHERE point_rank = 1
-    ORDER BY group_id;                               
+select
+    u.user_id as seller_id,
+    case
+        when i.item_brand = u.favorite_brand then 'Yes'
+        else 'No'
+    end as item_fav_brand
+from
+    users u
+    LEFT join rnk_orders ro on ro.seller_id = u.user_id
+    and rn = 2
+    LEFT join items i on i.item_id = ro.item_id

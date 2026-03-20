@@ -1,4 +1,4 @@
-# Find the winner of each group. The player with most points is the winner. If poitns tie, the payer with lower ID is the winner.
+# Find whether the second product sold by the seller (based on order-date) is their favorite product or not. If the seller has sold less than 2 products, mention as No
 
 --- 
 ## INPUT
@@ -16,33 +16,33 @@
 ## DATA PREPARATION
 
 ```
-create table players
-(player_id int,
-group_id int) ;
+create table users (
+user_id         int     ,
+ join_date       date    ,
+ favorite_brand  varchar(50));
 
-insert into players values (15,1);
-insert into players values (25,1);
-insert into players values (30,1);
-insert into players values (45,1);
-insert into players values (10,2);
-insert into players values (35,2);
-insert into players values (50,2);
-insert into players values (20,3);
-insert into players values (40,3);
+ create table orders (
+ order_id       int     ,
+ order_date     date    ,
+ item_id        int     ,
+ buyer_id       int     ,
+ seller_id      int 
+ );
 
-create table matches
-(
-match_id int,
-first_player int,
-second_player int,
-first_score int,
-second_score int) ;
+ create table items
+ (
+ item_id        int     ,
+ item_brand     varchar(50)
+ );
 
-insert into matches values (1,15,45,3,0);
-insert into matches values (2,30,25,1,2);
-insert into matches values (3,30,15,2,0);
-insert into matches values (4,40,20,5,2);
-insert into matches values (5,35,50,1,1);
+
+ insert into users values (1,'2019-01-01','Lenovo'),(2,'2019-02-09','Samsung'),(3,'2019-01-19','LG'),(4,'2019-05-21','HP');
+
+ insert into items values (1,'Samsung'),(2,'Lenovo'),(3,'LG'),(4,'HP');
+
+ insert into orders values (1,'2019-08-01',4,1,2),(2,'2019-08-02',2,1,3),(3,'2019-08-03',3,2,3),(4,'2019-08-04',1,4,2)
+ ,(5,'2019-08-04',1,3,4),(6,'2019-08-05',2,2,4);
+
 ```
 
 ---
@@ -50,33 +50,30 @@ insert into matches values (5,35,50,1,1);
 ## SQL SOLUTION OVERVIEW
 
 ```
-    WITH com_player AS (
-        SELECT first_player,  first_score
-        FROM matches
-        UNION ALL                                    
-        SELECT second_player, second_score
-        FROM matches
-    ),
-    group_points AS (
-        SELECT
-            first_player,
-            group_id,
-            SUM(first_score) AS total_score,
-            ROW_NUMBER() OVER (
-                PARTITION BY group_id
-                ORDER BY SUM(first_score) DESC,      
-                        first_player ASC
-            ) AS point_rank
-        FROM com_player c
-        INNER JOIN players p ON c.first_player = p.player_id
-        GROUP BY first_player, group_id             
+with
+    rnk_orders as (
+        select
+            *,
+            rank() over (
+                partition by
+                    seller_id
+                order by
+                    order_date asc
+            ) as rn
+        from
+            orders
     )
-    SELECT
-        group_id,
-        first_player as player_id,
-        total_score as score
-    FROM group_points
-    WHERE point_rank = 1
-    ORDER BY group_id;                               
+select
+    u.user_id as seller_id,
+    case
+        when i.item_brand = u.favorite_brand then 'Yes'
+        else 'No'
+    end as item_fav_brand
+from
+    users u
+    LEFT join rnk_orders ro on ro.seller_id = u.user_id
+    and rn = 2
+    LEFT join items i on i.item_id = ro.item_id
+
 ```
 --- 
