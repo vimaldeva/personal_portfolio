@@ -1,0 +1,17 @@
+git clone "https://github.com/vimaldeva/personal_portfolio.git"
+-- clones the given repository to your local
+
+git status
+-- shows the status of your current branch 
+
+git add .
+-- adds all the chnages from the local repository to remote repository
+
+git commit -m "message"
+-- commits the changes in local repository
+
+git push
+-- pushes the local change to the main repository
+
+git pull
+-- pulls the latest changes from remote repository to local repository
