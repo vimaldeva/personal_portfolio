@@ -1,5 +1,7 @@
 # Databricks Hands-On Checklist
 
+---
+
 ##  Notebooks
 -  Create notebook
 - switch between python and sql between notebooks
@@ -71,7 +73,7 @@ dbutils.help()
 dbutils.fs.help()
 dbutils.secrets.help()
 ```
-
+---
 ## Unity Catalog
 - Navigate to unity catalog
 - Create catalog, schema and table 
@@ -106,7 +108,7 @@ parquet.compression.codec: "zstd"
 rowTracking.materializedRowCommitVersionColumnName: "_row-commit-version-col-255b356d-9e92-44f2-b36f-376495ab7a80"
 rowTracking.materializedRowIdColumnName: "_row-id-col-304fa995-d732-4e04-9283-85617378a887"
 ```
-
+---
 ## Databricks Jobs
 - Create job
 
@@ -171,6 +173,7 @@ args = parser.parse_args()
 
 print(args.param1)
 ```
+---
 
 ## SQL Warehouse
 
@@ -208,6 +211,8 @@ print(args.param1)
 - Add output of notebook cell to dashbord
 #### Data Ingestion
 - Need to configure S3 bucket and other sources if any here. This is where we configure data lake and external sources
+
+## Declarative pipeline
 
 
 
