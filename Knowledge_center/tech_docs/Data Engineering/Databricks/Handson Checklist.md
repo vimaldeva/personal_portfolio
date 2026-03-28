@@ -7,6 +7,7 @@
 - check the version hitory in notebook
 - use the notebook code in Databricks jobs
 - Transfer the notebook code to python file and use it in notebook
+- See perforamance of each DF/query in each notebook cell output
 
 ## Magic commands
 
@@ -171,7 +172,42 @@ args = parser.parse_args()
 print(args.param1)
 ```
 
+## SQL Warehouse
 
+#### Warehouse section
+
+ - Create n SQL warehouse
+ - Mention parameters for sql warehouse such as Cluster size - 2X small, Auto stop after 10 mins, autoscaling.
+ - View the cpnnection details shcuh as hostname , http path, JDBC url, OAth URL, and connection setup for different partner like pwoer BI, DBT
+ - Monitoring section : you can see the query history, query run date/time, duration for each query, user who ran the query and multiple details of each query such as bytes read, rows returned, ad other details.
+- Monotoring graph section : Peak query count, completed query count, running clusters, 
+
+#### Query history section :
+- See history of all queries, query run date/time, duration, user, compute used, source
+- Apply different filters on compute, duration, status, statement (create, drop, delete, select, describe etc.), source and statement ID.
+
+#### Queries section 
+- The file created in the SQL editor section will be stored here    
+- You can save the query and schedule th query also here.
+- In the qorkspace you can create a query instead of notebook , it will be stored in the queries section as a file  
+- you can pass parameters to the SQL query so that the query could use it.
+
+#### SQL editor section
+- The Queries section covered everything...both has dependency together.
+
+#### Alerts
+- Create an altert on the SQL query based on First row, count, sum, count distinct, min, max, average etc on [different columns] with conditions such as > , <, = , Null, Not Null, !+ to a predefined static value. 
+- You can set a email ID for notification. 
+- You can also send alerts when qiery returns empty results.
+- You can customize the email subject and body if you want.
+- You have to set a CRON schedule to the alert to run it.
+
+#### Dashboard
+- Add the table from unity catalog to the Dahboard
+- Add query output from SQL editor to dashboard
+- Add output of notebook cell to dashbord
+#### Data Ingestion
+- Need to configure S3 bucket and other sources if any here. This is where we configure data lake and external sources
 
 
 
