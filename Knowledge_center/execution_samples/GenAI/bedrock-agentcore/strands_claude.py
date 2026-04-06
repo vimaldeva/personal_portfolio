@@ -21,8 +21,7 @@ model = BedrockModel(
 agent = Agent(
     model=model,
     tools=[calculator, weather],
-    system_prompt="You're a helpful assistant. You can do simple math calculation, and tell the weather."
-)
+    system_prompt="You're a helpful assistant. You can do simple math calculation, and tell the weather." )
 
 def extract_text_from_response(resp) -> str:
     # Best-case: some SDKs expose .text
