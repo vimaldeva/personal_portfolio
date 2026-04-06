@@ -213,6 +213,3 @@ print(args.param1)
 - Need to configure S3 bucket and other sources if any here. This is where we configure data lake and external sources
 
 ## Declarative pipeline
-
-
-
