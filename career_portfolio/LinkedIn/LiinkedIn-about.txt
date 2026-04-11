@@ -1,0 +1,39 @@
+✍️ As a certified and experienced Data Engineer with over 6 years of experience, I specialize in building scalable ETL pipelines, designing cloud-native data workflows, and implementing end-to-end data platform solutions using tools like AWS, Databricks, Snowflake, and PySpark.
+
+
+
+ ✍️ Expertise in Big Data processing, data modeling, and AI-driven workflows, focused on delivering secure, reliable, and optimized architectures for data-driven decision-making.
+
+
+
+ ✍️ Well-versed in AWS technologies, including EMR, S3, Glue, and Redshift, I have successfully implemented robust solutions for various projects.
+
+
+
+✍️ Focused expertise in AWS, with ongoing efforts to expand knowledge in other cloud platforms such as Azure Data Factory (ADF), Databricks, and Snowflake, to build a solid foundation in multi-cloud environments and broaden capabilities across diverse cloud ecosystems.
+
+
+
+✍️ Good understanding of data visualization and dashboard creation using Power BI, enabling the presentation of complex data in a clear and actionable format to support informed decision-making.
+
+
+
+✍️ Experience in exploring and implementing AI-driven workflows using tools like LangGraph, with a focus on leveraging Generative AI and Agentic AI to build intelligent, automated solutions that enhance data processing and decision-making capabilities.
+
+
+
+🎯 Key Certifications :
+
+
+
+🎓 AWS Certified Data Engineer Associate (DEA-C01)
+
+🎓 Databricks Certified Data Engineer Associate 
+
+🎓 Databricks Certified Generative AI Engineer Associate
+
+🎓 Microsoft Certified Azure AI Engineer Associate (AI-102)
+
+🎓 Microsoft Azure Fundamentals certified (AZ-900)
+
+🎓 Snowflake Snowpro Core certified (COF-C02)
