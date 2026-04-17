@@ -49,11 +49,13 @@ Requires Extra Math in Python: Unlike most metrics, Scikit-Learn does not have a
 When you are comparing two models that predict the exact same thing, but one model uses more variables than the other.
 
 During "feature selection" (the process of deciding which columns of data to keep and which to delete before training your model).
+
 ---
 #### When Not to Use It
 When you only have one single variable predicting your target (Simple Linear Regression). Regular R-squared is perfectly fine here.
 
 When you need to report the actual dollar, minute, or temperature error to stakeholders (use MAE or RMSE).
+
 ---
 #### A Real-World Scenario Where Adjusted R-squared is the Best Choice
 Scenario: Predicting House Prices using Good vs. Garbage Data

@@ -65,6 +65,7 @@ print(f"The R-squared score is: {r2_result:.4f} (or {r2_result * 100:.2f}%)")
 When you need a quick, universal baseline to see if your model is actually doing anything useful (if your R² is 0.05, your model has failed to learn anything).
 
 When you need to compare model performance across different departments or datasets with vastly different numbers.
+
 ---
 
 #### When Not to Use It

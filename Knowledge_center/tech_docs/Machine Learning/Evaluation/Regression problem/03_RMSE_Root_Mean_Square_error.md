@@ -21,6 +21,7 @@ Steps to calculate:
 Calculate the MSE exactly as you did before (subtract guess from actual, square it, add them up, divide by total).
 
 Take the square root ($\sqrt{}$) of that final number.
+
 ---
 
 #### Python code 
