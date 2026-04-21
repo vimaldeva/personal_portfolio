@@ -1,0 +1,2 @@
+Wrapper Methods: Use a specific machine learning model to score subsets of features.
+Recursive Feature Elimination (RFE): Repeatedly builds a model and removes the weakest feature(s) until the specified number of features is reached.
