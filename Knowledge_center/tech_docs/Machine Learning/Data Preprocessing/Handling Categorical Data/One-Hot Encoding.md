@@ -62,31 +62,7 @@ Standard and Widely Understood: It is the default, most accepted method for hand
 
 ---
 
-#### Python Code 1 
-
-```
-import pandas as pd
-
-# Create a sample DataFrame
-df = pd.DataFrame({
-    'color': ['Red', 'Green', 'Blue', 'Green'],
-    'size': ['S', 'M', 'L', 'S']
-})
-
-print("Original DataFrame:")
-print(df)
-print("-" * 30)
-
-# Perform one-hot encoding on the 'color' column
-ohe_df = pd.get_dummies(df, columns=['color'], prefix='color')
-
-print("DataFrame after One-Hot Encoding:")
-print(ohe_df)
-```
-
----
-
-#### Python code 2 
+#### Python code 
 
 ```
 from sklearn.preprocessing import OneHotEncoder
