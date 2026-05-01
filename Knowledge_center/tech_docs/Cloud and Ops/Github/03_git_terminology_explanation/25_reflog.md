@@ -1,0 +1,8 @@
+### Reflog
+Reflog, short for "reference log," is a powerful Git feature that allows you to keep track of changes to the tip of branches and other references. It records updates to the HEAD and branch references, providing a history of where those references have been. This can be incredibly useful for recovering lost commits or understanding the history of changes in your repository.
+
+When you make changes to your branches, such as commits, merges, or rebases, Git updates the references accordingly. The reflog keeps a record of these updates, allowing you to see the previous states of your branches and HEAD. This means that even if you accidentally delete a branch or lose commits, you can use the reflog to find and recover those changes.
+
+To view the reflog, you can use the command `git reflog`. This will display a list of recent updates to the HEAD and branch references, along with their corresponding commit messages and timestamps. Each entry in the reflog is indexed, allowing you to reference specific entries when you want to recover lost commits or reset your branch to a previous state.
+
+In summary, the reflog is a valuable tool in Git that provides a history of changes to the HEAD and branch references. It allows you to track changes, recover lost commits, and understand the history of your repository. By using the reflog, you can ensure that you have a safety net for recovering from mistakes and maintaining the integrity of your Git history.
