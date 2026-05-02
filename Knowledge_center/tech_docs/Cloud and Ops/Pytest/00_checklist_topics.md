@@ -1,0 +1,23 @@
+### Pytest
+// I am a beginner to pytest, I need you to give me list of all topics and concepts that I need to learn or know about pytest
+- Introduction to pytest
+- Installation and setup of pytest
+- Writing test cases using pytest
+- Running tests with pytest
+- Assertions in pytest
+- Fixtures in pytest
+- Parametrization in pytest
+- Test discovery in pytest
+- Test organization and test classes in pytest
+- Test markers in pytest
+- Test configuration in pytest
+- Test reporting in pytest
+- Test debugging in pytest
+- Test coverage with pytest
+- Mocking and patching in pytest
+- Best practices for writing tests with pytest
+- Integrating pytest with CI/CD pipelines
+- Advanced pytest features and plugins
+- pytest-xdist for parallel test execution
+- pytest-cov for test coverage reporting
+- pytest-mock for mocking in tests
