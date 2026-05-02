@@ -41,26 +41,11 @@ Stash
 Reflog 
 
 ---
-
-### Automation & DevOps (GitHub Actions)
-Workflow 
-Action 
-Runner 
-Secret 
-Artifact 
-
----
 ### Security & Governance
 Branch Protection 
 CODEOWNERS 
 Dependabot 
 Personal Access Token (PAT) 
-
----
-### Data Engineering Specifics
-Git LFS (Large File Storage) 
-Tag 
-Release 
 
 ---
 ### The "Undo" Commands
