@@ -80,5 +80,62 @@ How to handle Failed Job Retries without duplicating data.
 How to handle Cost Spikes by implementing Glue Flex or Auto Scaling.
 How to handle Data Validation failures using Glue Data Quality rules.
 
+---
+
+### DPU
+
+- DPU is the unit of compute power in AWS Glue
+``` 1 DPU = 4 vCPUs + 16 GB RAM ```
+
+- Similar concept to RPU in Redshift Serverless — it's just how Glue measures and bills compute
+
+Analogy:
+Instead of saying "I need 8 CPUs and 32GB RAM"
+Glue says "I need 2 DPUs" — it's just a packaged unit of compute
+
+```
+Glue Job
+    ↓
+You define number of DPUs (or max DPUs for auto-scaling)
+    ↓
+Glue spins up Spark cluster using those DPUs
+    ↓
+1 DPU becomes the Driver (like Leader Node)
+Remaining DPUs become Executors (like Compute Nodes)
+    ↓
+Job finishes → cluster torn down → billing stops
+
+```
+
+
+| Worker Type | DPU per Worker | vCPU | RAM | Best For |
+| :-- | :-- | :-- | :-- | :-- |
+| Standard | 1 DPU | 4 vCPU | 16 GB | General workloads |
+| G.1X | 1 DPU | 4 vCPU | 16 GB | Memory-optimized per worker |
+| G.2X | 2 DPU | 8 vCPU | 32 GB | Heavy transforms, large datasets |
+| G.4X | 4 DPU | 16 vCPU | 64 GB | Very large workloads |
+| G.8X | 8 DPU | 32 vCPU | 128 GB | Extremely large workloads |
+| G.025X | 0.25 DPU | 2 vCPU | 4 GB | Python Shell / small jobs |
+
+### Pricing 
+
+```
+Cost = DPU-hours used × price per DPU-hour
+
+Example:
+Job runs for 10 minutes using 10 DPUs
+= 10 DPUs × (10/60) hours
+= 1.67 DPU-hours × ~$0.44
+= ~$0.73 per job run
+```
+
+### Key Things to Remember
+- More DPUs = more parallel executors = faster job (up to a point)
+- Adding DPUs doesn't always help — small datasets won't benefit from 20 DPUs
+- G.2X or higher → use when you hit OOM (Out of Memory) errors
+- G.025X → only for Python Shell jobs — lightest and cheapest
+- Minimum DPUs for a Spark job = 2 DPUs (1 driver + 1 executor)
+- Use Auto Scaling for unpredictable or variable data volume jobs
+
 
 
