@@ -10,3 +10,5 @@ Scheduler → Executor → Worker 1 → runs task_1
                      → Worker 2 → runs task_2
                      → Worker 3 → runs task_3
 ```
+
+In AWS MAVAA, it is managed by AWS itself as Fargate containers. You will not manage it

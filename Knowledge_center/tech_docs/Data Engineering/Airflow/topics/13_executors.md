@@ -36,3 +36,4 @@ Worker 1 | Worker 2 | Worker 3
 ```
 
 
+In AWS MAVAA, it is managed by AWS itself . You will not manage it
