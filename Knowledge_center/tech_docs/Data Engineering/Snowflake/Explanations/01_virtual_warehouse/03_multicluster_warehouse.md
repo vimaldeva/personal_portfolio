@@ -46,4 +46,4 @@ CREATE WAREHOUSE reporting_wh
 - 3 clusters running = 3x the credits per hour
 - Multi-cluster does NOT help with single slow queries — use bigger size for that
 - Clusters share same cache — cache reuse across clusters is limited
-- Enterprise edition and above only
+-       Enterprise edition and above only

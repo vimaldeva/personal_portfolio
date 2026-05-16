@@ -1,0 +1,46 @@
+python -m pytest test_00_basic.py  
+-- This runs the pytest for a specific file
+    
+
+python -m pytest   
+-- This automatically discovers and runs all the test files in the current directory and subdirectories and will run all the test functions in those files.
+
+python -m pytest -v  
+-- This runs the tests in verbose mode, providing more detailed output about which tests are being run and their results.
+
+python -m pytest -vs
+-- This runs the tests in verbose mode and allows you to see the output from print statements in your test functions. The -s option disables output capturing, so you can see the print statements directly in the console.
+
+python -m pytest -vsk my_func_name
+-- This runs only the tests that match the specified keyword expression (in this case, "my_func_name"). The -k option allows you to filter tests based on their names or other attributes.
+
+python -m pytest -m vimal
+-- This runs only the tests that are marked with the specified marker (in this case, "vimal"). The -m option allows you to select tests based on custom markers that you have defined in your test code. You have to use the @pytest.mark.vimal decorator to mark the test functions you want to run with this marker.
+
+
+@pytest.mark.skip
+-- This is a built-in marker in pytest that allows you to skip a test function. You can provide a reason for skipping the test using the reason parameter.
+
+@pytest.mark.xfail
+-- This is another built-in marker in pytest that indicates that a test is expected to fail. You can provide a reason for the expected failure using the reason parameter. When you run the tests, pytest will report the test as "expected to fail" if it fails, and it will not count it as a failure in the overall test results. You can use this marker when you have a known issue that you are working on fixing, and you want to acknowledge that the test is currently failing but will be fixed in the future.
+
+@pytest.fixture
+-- This is a built-in marker in pytest that allows you to define a fixture function. Fixtures are used to set up and tear down resources needed for tests, such as database connections, test data, or mock objects. You can use the @pytest.fixture decorator to define a fixture function, and then you can use that fixture in your test functions by including it as an argument. The fixture will be executed before the test function runs, and any resources it sets up will be available for use in the test. Use yield in the fixture function to provide a teardown mechanism after the test has completed. THe satements before the yield will be executed before the test, and the statements after the yield will be executed after the test, allowing you to clean up any resources that were set up for the test.
+
+
+conftest.py
+-- This is a special file in pytest that allows you to define fixtures, hooks, and other configurations that can be shared across multiple test files. You can place a conftest.py file in the root directory of your tests or in any subdirectory, and the fixtures and configurations defined in that file will be available to all the test files in that directory and its subdirectories. This is useful for organizing your test code and avoiding duplication of fixtures and configurations across multiple test files.
+autouse -  This is a parameter that can be used with fixtures in pytest. When you set autouse=True for a fixture, it will be automatically applied to all test functions in the scope of the fixture without needing to explicitly include it as an argument in the test functions. This can be useful for fixtures that set up common resources or configurations that are needed for all tests, such as database connections or test data. However, use autouse with caution, as it can make it less clear which fixtures are being used in each test function and can lead to unintended side effects if not managed properly.
+scope - This is a parameter that can be used with fixtures in pytest to define the scope of the fixture. The scope determines how often the fixture is set up and torn down during the test execution. The available scopes are:
+- function: The fixture is set up and torn down for each test function (default).
+- class: The fixture is set up once per test class and shared among all test methods in that class.
+- module: The fixture is set up once per test module and shared among all test functions in that module.
+- session: The fixture is set up once per test session and shared among all test functions in the entire test suite.
+By defining the scope of a fixture, you can control how often it is executed and manage resources
+
+fixture parameter
+-- This is a feature in pytest that allows you to define parameters for fixtures. You can use the params parameter in the @pytest.fixture decorator to specify a list of values that the fixture should be parameterized with. When you run the tests, pytest will automatically run the test function once for each value in the params list, and the fixture will be executed with each of those values. This is useful for testing different scenarios or configurations without having to write separate test functions for each case. You can access the current parameter value in the fixture function using the request.param attribute.
+
+
+mark parameterize
+-- This is a feature in pytest that allows you to define parameters for test functions. You can use the @pytest.mark.parametrize decorator to specify a list of values for the parameters of a test function. When you run the tests, pytest will automatically run the test function once for each combination of parameter values specified in the @pytest.mark.parametrize decorator. This is useful for testing different scenarios or configurations without having to write separate test functions for each case. You can specify multiple parameters and their corresponding values in the @pytest.mark.parametrize decorator, allowing you to create comprehensive test cases with various input combinations.
