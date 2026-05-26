@@ -63,10 +63,12 @@ plt.show()
 
 ---
 ### PR Curve vs. ROC Curve: Which one to use?
-- Scenario	Use ROC Curve	Use PR Curve
-- Class Balance	Balanced (50/50)	Imbalanced (e.g., 95/5)
-- Focus	Overall performance of both classes	Performance on the Minority class
-- Example	Predicting Gender (Male/Female)	Fraud Detection, Cancer Diagnosis
+
+| Scenario | Use ROC Curve | Use PR Curve |
+| :-- | :-- | :-- |
+| Class Balance | Balanced (50/50) | Imbalanced (e.g., 95/5) |
+| Focus | Overall performance of both classes | Performance on the Minority class |
+| Example | Predicting Gender (Male/Female) | Fraud Detection, Cancer Diagnosis |
 
 ---
 ### Summary
