@@ -1,0 +1,11 @@
+python3 -m venv .venv
+.venv\Scripts\Activate.ps1
+
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+pip install --upgrade pip
+
+pip install llama-index llama-index-vector-stores-faiss faiss-cpu
+
+pip install llama-index-embeddings-huggingface llama-index-llms-ollama
+
