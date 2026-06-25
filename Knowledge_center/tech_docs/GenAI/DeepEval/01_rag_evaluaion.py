@@ -1,4 +1,4 @@
-from deepeval import evaluate
+from deepeval import evaluate , assert_test
 from deepeval.metrics import AnswerRelevancyMetric, FaithfulnessMetric, ContextualPrecisionMetric, ContextualRecallMetric, ContextualRelevancyMetric
 from deepeval.test_case import LLMTestCase
 from dotenv import load_dotenv
@@ -30,3 +30,4 @@ metrics = [AnswerRelevancyMetric(model = local_model,async_mode=False), Faithful
            ContextualRelevancyMetric(model= local_model)]
 
 evaluate(test_cases = [test_case], metrics= metrics)
+# assert_test(test_case, metrics)
