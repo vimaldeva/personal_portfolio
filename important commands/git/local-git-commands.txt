@@ -15,3 +15,42 @@ git push
 
 git pull
 -- pulls the latest changes from remote repository to local repository
+
+
+----------------------------------------------------------------------------- 
+
+## Branching commands.
+
+git branch
+-- Run the base command to view all local branches in your current repository:
+
+git branch --show-current
+-- If you want the terminal to output just the name of the branch you are actively working on (useful for scripts), use the --show-current flag:
+
+git branch - r
+-- To view branches that have been pushed to a remote server (like GitHub or GitLab):
+
+git branch -a
+--   List All Branches (Both Local and Remote)
+
+git branch -v
+-- To see the latest commit hash and commit message alongside each branch name:
+
+git branch <branch-name>
+-- To create a branch without switching to it immediately:
+
+git switch <branch-name>
+-- To move from your current branch to a different, existing branch:
+
+git switch -c <branch-name>
+-- To create a brand new branch and immediately switch into it in one step:
+
+git switch -
+-- To quickly jump back to the branch you were working on right before your last switch:
+
+git branch -m <new-branch-name>
+-- If you made a typo or want to rename your current active branch:
+
+git branch -d <branch-name>
+-- Once you are done with a branch and have switched out of it, you can delete it:
+
