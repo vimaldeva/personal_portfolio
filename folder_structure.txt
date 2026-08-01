@@ -1,0 +1,37 @@
+jenis-beauty/
+├── index.html
+├── saree-pleating.html
+├��─ beauty-makeup.html
+├── haircut.html
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+└── images/
+    ├── logo.png              ← Place your logo here
+    ├── hero-bg.jpg           ← Salon/beauty hero background
+    ├── about.jpg             ← About section photo
+    ├── saree-category.jpg    ← Saree category card image
+    ├── beauty-category.jpg   ← Beauty category card image
+    ├── haircut-category.jpg  ← Haircut category card image
+    ├── saree-pleating-1.jpg  ← Saree pleating service
+    ├── saree-pleating-2.jpg  ← Saree draping service
+    ├── saree-bridal.jpg      ← Bridal saree draping
+    ├── bridal-makeup.jpg     ← Bridal makeup service
+    ├── regular-makeup.jpg    ← Regular makeup service
+    ├── facial-bleaching.jpg  ← Facial/bleaching service
+    ├── manicure.jpg          ← Manicure service
+    ├── pedicure.jpg          ← Pedicure service
+    ├── eyebrow.jpg           ← Eyebrow threading
+    ├── haircut-women.jpg     ← Women haircut
+    ├── haircut-men.jpg       ← Men haircut
+    ├── hair-coloring.jpg     ← Hair coloring
+    ├── hair-treatment.jpg    ← Hair treatment
+    ├── gallery-1.jpg         ← Gallery images (1-8)
+    ├── gallery-2.jpg
+    ├── gallery-3.jpg
+    ├── gallery-4.jpg
+    ├── gallery-5.jpg
+    ├── gallery-6.jpg
+    ├── gallery-7.jpg
+    └── gallery-8.jpg
